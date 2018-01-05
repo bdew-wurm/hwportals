@@ -38,19 +38,19 @@ public class PortalTracker {
             if (villagePortalMap.containsKey(village.id) && villagePortalMap.get(village.id) != portal.getWurmId()) {
                 try {
                     Item oldPortal = Items.getItem(villagePortalMap.get(village.id));
-                    HwPortals.logWarning(String.format("Adding portal in village %s which already has portal %d, disabling", village.getName(), portal.getWurmId()));
+                    HwPortals.logWarning(String.format("Adding caravan station in village %s which already has caravan station %d, disabling", village.getName(), portal.getWurmId()));
                     PortalItems.setPortalActive(oldPortal, true);
                 } catch (NoSuchItemException e) {
-                    HwPortals.logWarning(String.format("Adding portal to village %d that had a non-existing portal", portal.getWurmId()));
+                    HwPortals.logWarning(String.format("Adding caravan station to village %d that had a non-existing station", portal.getWurmId()));
                 }
             }
-            HwPortals.logInfo(String.format("Adding portal %d in village %s", portal.getWurmId(), village.getName()));
+            HwPortals.logInfo(String.format("Adding caravan station %d in village %s", portal.getWurmId(), village.getName()));
             villagePortalMap.put(village.id, portal.getWurmId());
             portalVillageMap.put(portal.getWurmId(), village.id);
         } else {
-            HwPortals.logWarning(String.format("Tried to add portal %d not in any village, disabling", portal.getWurmId()));
+            HwPortals.logWarning(String.format("Tried to add caravan station %d not in any village, disabling", portal.getWurmId()));
             portal.setAuxData((byte) 0);
-            portal.setName("inactive town portal");
+            portal.setName("inactive caravan station");
         }
     }
 
@@ -59,9 +59,9 @@ public class PortalTracker {
             int villageId = portalVillageMap.remove(portal.getWurmId());
             try {
                 Village village = Villages.getVillage(villageId);
-                HwPortals.logInfo(String.format("Removing portal %d from village %s", portal.getWurmId(), village.getName()));
+                HwPortals.logInfo(String.format("Removing caravan station %d from village %s", portal.getWurmId(), village.getName()));
             } catch (NoSuchVillageException e) {
-                HwPortals.logWarning(String.format("Removing portal %d unknown village %d", portal.getWurmId(), villageId));
+                HwPortals.logWarning(String.format("Removing caravan station %d unknown village %d", portal.getWurmId(), villageId));
             }
             villagePortalMap.remove(villageId);
         }
@@ -73,7 +73,7 @@ public class PortalTracker {
             try {
                 return Items.getItem(portalId);
             } catch (NoSuchItemException e) {
-                HwPortals.logWarning(String.format("Item not found when looking for portal %d for village %s", portalId, village.getName()));
+                HwPortals.logWarning(String.format("Item not found when looking for caravan station %d for village %s", portalId, village.getName()));
                 return null;
             }
         } else return null;

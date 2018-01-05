@@ -51,36 +51,36 @@ public class TogglePortalAction implements ModAction, BehaviourProvider, ActionP
         Village village = tile.getVillage();
         if (village == null) {
             if (sendErrors)
-                performer.getCommunicator().sendAlertServerMessage("Portals can only be activated in villages.");
+                performer.getCommunicator().sendAlertServerMessage("Caravan stations can only be activated in villages.");
             return !sendErrors;
         }
         if (performer.getPower() < 3) {
             VillageRole role = village.getRoleFor(performer);
             if (role == null || !role.mayManageSettings()) {
                 if (sendErrors)
-                    performer.getCommunicator().sendAlertServerMessage("You need to be the mayor of the village, or have management permissions to manage portals.");
+                    performer.getCommunicator().sendAlertServerMessage("You need to be the mayor of the village, or have management permissions to manage caravan stations.");
                 return !sendErrors;
             }
         }
         if (activate) {
             if (tile.getStructure() != null) {
                 if (sendErrors)
-                    performer.getCommunicator().sendAlertServerMessage("Portals can't be placed inside buildings or on bridges.");
+                    performer.getCommunicator().sendAlertServerMessage("Caravan Stations can't be placed inside buildings or on bridges.");
                 return !sendErrors;
             }
             if (PortalTracker.getPortalFor(village) != null) {
                 if (sendErrors)
-                    performer.getCommunicator().sendAlertServerMessage(String.format("There is already an active portal in %s, shut it down first.", village.getName()));
+                    performer.getCommunicator().sendAlertServerMessage(String.format("There is already an active caravan station in %s, shut it down first.", village.getName()));
                 return !sendErrors;
             }
             if (target.getCurrentQualityLevel() < 20f) {
                 if (sendErrors)
-                    performer.getCommunicator().sendAlertServerMessage("This portal is too low quality, using it would be unsafe! Improve it first.");
+                    performer.getCommunicator().sendAlertServerMessage("This caravan station is too low quality, using it would be unsafe! Improve it first.");
                 return !sendErrors;
             }
             if (!Terraforming.isFlat(target.getTileX(), target.getTileY(), target.isOnSurface(), 10)) {
                 if (sendErrors)
-                    performer.getCommunicator().sendAlertServerMessage("The portal must be placed on a more level tile.");
+                    performer.getCommunicator().sendAlertServerMessage("The caravan station must be placed on a more level tile.");
                 return !sendErrors;
             }
 

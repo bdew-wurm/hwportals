@@ -20,7 +20,7 @@ public class Hooks {
         HwPortals.logInfo("Checking loaded portals...");
         portalsToLoad.forEach(PortalTracker::addPortal);
         portalsToLoad.clear();
-        HwPortals.logInfo(String.format("Checking loaded portals done, took %dms", System.currentTimeMillis() - start));
+        HwPortals.logInfo(String.format("Checking loaded caravan stations done, took %dms", System.currentTimeMillis() - start));
     }
 
     public static void disband(Village village) {
@@ -28,7 +28,7 @@ public class Hooks {
         if (portal != null) {
             PortalTracker.removePortal(portal);
             portal.setAuxData((byte) 0);
-            portal.setName("inactive town portal", true);
+            portal.setName("closed town route", true);
         }
     }
 
@@ -37,7 +37,7 @@ public class Hooks {
         if (portal != null && !village.containsItem(portal)) {
             PortalTracker.removePortal(portal);
             portal.setAuxData((byte) 0);
-            portal.setName("inactive town portal", true);
+            portal.setName("closed town route", true);
         }
     }
 }

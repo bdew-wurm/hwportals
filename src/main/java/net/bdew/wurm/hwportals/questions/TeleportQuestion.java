@@ -31,7 +31,7 @@ public class TeleportQuestion implements ModQuestion {
         buf.append("'}");
 
         buf.append("text{text=''}");
-        buf.append("center{text{type='italic';text=\"Now you're thinking with portals\"}}");
+        buf.append("center{text{type='italic';text=\"Now you're riding with the caravan\"}}");
         buf.append("text{text=''}");
 
         buf.append(ModQuestions.createAnswerButton2(question, "Confirm"));
@@ -46,7 +46,7 @@ public class TeleportQuestion implements ModQuestion {
         try {
             targetVillage = targets.get(Integer.parseInt(answers.getProperty("tgt")));
         } catch (Exception e) {
-            performer.getCommunicator().sendAlertServerMessage("Something went wrong. Try again later or contact staff.");
+            performer.getCommunicator().sendAlertServerMessage("Caravan did not leave as expected. Try again later or contact staff.");
             return;
         }
         if (targetVillage == null) {
@@ -56,7 +56,7 @@ public class TeleportQuestion implements ModQuestion {
 
         Item targetPortal = PortalTracker.getPortalFor(targetVillage);
         if (targetPortal == null || targetPortal.zoneId <= 0) {
-            performer.getCommunicator().sendAlertServerMessage("Target portal is no longer reachable.");
+            performer.getCommunicator().sendAlertServerMessage("Target station is no longer reachable.");
             return;
         }
 
@@ -64,6 +64,6 @@ public class TeleportQuestion implements ModQuestion {
     }
 
     public static void send(Creature player, List<Village> targets) {
-        ModQuestions.createQuestion(player, "Town portal", "Town portal", -10, new TeleportQuestion(player, targets)).sendQuestion();
+        ModQuestions.createQuestion(player, "Town caravan route", "Town caravan route", -10, new TeleportQuestion(player, targets)).sendQuestion();
     }
 }

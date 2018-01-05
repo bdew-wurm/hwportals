@@ -33,7 +33,7 @@ public class PreventPortalActionPerformer implements ActionPerformer {
     @Override
     public boolean action(Action action, Creature performer, Item target, short num, float counter) {
         if (shouldPrevent(performer, target)) {
-            performer.getCommunicator().sendAlertServerMessage(String.format("Shut the portal down before %s it.", action.getActionEntry().getVerbString()));
+            performer.getCommunicator().sendAlertServerMessage(String.format("Shut the caravan station down before %s it.", action.getActionEntry().getVerbString()));
             return propagate(action, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION, ActionPropagation.FINISH_ACTION);
         } else {
             return propagate(action, ActionPropagation.ACTION_PERFORMER_PROPAGATION, ActionPropagation.SERVER_PROPAGATION);

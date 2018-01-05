@@ -60,26 +60,26 @@ public class TeleportHelper {
                 if (vehicle != null) {
                     String vehicleName = Vehicle.getVehicleName(vehicle);
                     if (vehicle.pilotId != performer.getWurmId()) {
-                        performer.getCommunicator().sendNormalServerMessage(String.format("You disembark the %s and then step into the portal.", vehicleName));
-                        Server.getInstance().broadCastAction(String.format("%s disembarks the %s and steps into a portal.", performer.getName(), vehicleName), performer, 5);
+                        performer.getCommunicator().sendNormalServerMessage(String.format("You disembark the %s and then board the caravan.", vehicleName));
+                        Server.getInstance().broadCastAction(String.format("%s disembarks the %s and board the caravan.", performer.getName(), vehicleName), performer, 5);
                         vehicle = null;
                     } else {
-                        performer.getCommunicator().sendNormalServerMessage(String.format("You direct the %s into the portal.", vehicleName));
-                        Server.getInstance().broadCastAction(String.format("%s directs %s into a portal.", performer.getName(), vehicleName), performer, 5);
+                        performer.getCommunicator().sendNormalServerMessage(String.format("You direct the %s in line with the caravan.", vehicleName));
+                        Server.getInstance().broadCastAction(String.format("%s directs %s in line with the caravan.", performer.getName(), vehicleName), performer, 5);
                         Arrays.stream(vehicle.seats)
                                 .filter(Seat::isOccupied)
                                 .map(Seat::getOccupant)
                                 .filter(v -> v != performer.getWurmId())
                                 .flatMap(TeleportHelper::getPlayerSafe)
                                 .forEach(p -> {
-                                    performer.getCommunicator().sendNormalServerMessage(String.format("The %s disappears as it goes into a portal.", vehicleName));
+                                    performer.getCommunicator().sendNormalServerMessage(String.format("The %s disappears among all the caravan wagons", vehicleName));
                                     p.disembark(false);
                                 });
                     }
                 }
             } else {
-                performer.getCommunicator().sendNormalServerMessage("You step into the portal.");
-                Server.getInstance().broadCastAction(String.format("%s steps into a portal.", performer.getName()), performer, 5);
+                performer.getCommunicator().sendNormalServerMessage("You board the caravan.");
+                Server.getInstance().broadCastAction(String.format("%s board the caravan.", performer.getName()), performer, 5);
             }
 
             Map<Creature, Item> leadingItems = new HashMap<>();
@@ -93,7 +93,7 @@ public class TeleportHelper {
 
             teleportCreature(performer, target);
 
-            broadCastActionAt(String.format("%s emerges from a portal.", performer.getName()), performer, target, 5);
+            broadCastActionAt(String.format("%s emerges from a caravan wagon.", performer.getName()), performer, target, 5);
 
             if (dragged != null) {
                 teleportItem(dragged, target);
@@ -113,8 +113,8 @@ public class TeleportHelper {
                 }
             }
         } catch (Exception e) {
-            HwPortals.logException(String.format("Error while teleporting %s to %d", performer.getName(), target.getWurmId()), e);
-            performer.getCommunicator().sendAlertServerMessage("Something went wrong while teleporting, try again later or contact staff.");
+            HwPortals.logException(String.format("Error while traveling %s to %d", performer.getName(), target.getWurmId()), e);
+            performer.getCommunicator().sendAlertServerMessage("Something went wrong with the caravan, try again later or contact staff.");
         }
     }
 

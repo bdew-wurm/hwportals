@@ -18,7 +18,7 @@ public class TeleportAction implements ModAction, BehaviourProvider, ActionPerfo
     private final ActionEntry actionEntry;
 
     public TeleportAction() {
-        actionEntry = ActionEntry.createEntry((short) ModActions.getNextActionId(), "Teleport", "thinking with portals", new int[]{
+        actionEntry = ActionEntry.createEntry((short) ModActions.getNextActionId(), "Ride Caravan", "ride to a nearby settlement", new int[]{
                 48 /* ACTION_TYPE_ENEMY_ALWAYS */,
                 37 /* ACTION_TYPE_NEVER_USE_ACTIVE_ITEM */
         });
@@ -67,19 +67,19 @@ public class TeleportAction implements ModAction, BehaviourProvider, ActionPerfo
         }
 
         if (performer.getVisionArea() == null || !performer.getVisionArea().isInitialized()) {
-            performer.getCommunicator().sendAlertServerMessage("You have not fully manifested in the world yet, please wait a bit.");
+            performer.getCommunicator().sendAlertServerMessage("You have just rode a caravan, please wait a bit.");
             return propagate(action, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION, ActionPropagation.FINISH_ACTION);
         }
 
         Village village = PortalTracker.getVillageFor(target);
         if (village == null) {
-            performer.getCommunicator().sendAlertServerMessage("The portal needs to be placed in a village to use.");
+            performer.getCommunicator().sendAlertServerMessage("The caravan station needs to be placed in a village to use.");
             return propagate(action, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION, ActionPropagation.FINISH_ACTION);
         }
 
         List<Village> validTargets = PortalTracker.getTeleportDestinations(performer, village);
         if (validTargets.isEmpty()) {
-            performer.getCommunicator().sendAlertServerMessage("There are no valid destinations for the portal.");
+            performer.getCommunicator().sendAlertServerMessage("There are no valid destinations for the caravan station.");
             return propagate(action, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION, ActionPropagation.FINISH_ACTION);
         }
 
