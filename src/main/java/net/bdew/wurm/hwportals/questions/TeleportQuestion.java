@@ -26,9 +26,9 @@ public class TeleportQuestion implements ModQuestion {
         final StringBuilder buf = new StringBuilder(ModQuestions.getBmlHeader(question));
         buf.append("text{text='Choose your destination:.'}text{text=''}");
 
-        buf.append("dropdown{id='tgt';options='");
+        buf.append("dropdown{id='tgt';options=\"");
         targets.forEach(v -> buf.append((v.isPermanent || v.isCapital()) ? v.getName() + " (Spawn)" : v.getName()).append(","));
-        buf.append("'}");
+        buf.append("\"}");
 
         buf.append("text{text=''}");
         buf.append("center{text{type='italic';text=\"Now you're thinking with portals\"}}");
