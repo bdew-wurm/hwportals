@@ -131,7 +131,7 @@ public class TeleportHelper {
 
     private static void teleportItem(Item subject, Item target) throws NoSuchZoneException {
         Zone originZone = Zones.getZone(subject.getTilePos(), subject.isOnSurface());
-        Zone targetZone = Zones.getZone(target.getTilePos(), subject.isOnSurface());
+        Zone targetZone = Zones.getZone(target.getTilePos(), target.isOnSurface());
         originZone.removeItem(subject);
         subject.setPosXYZRotation(target.getPosX(), target.getPosY(), target.getPosZ(), target.getRotation());
         targetZone.addItem(subject);
