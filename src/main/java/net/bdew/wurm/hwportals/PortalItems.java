@@ -25,9 +25,11 @@ public class PortalItems {
                         ItemTypes.ITEM_TYPE_OUTSIDE_ONLY,
                         ItemTypes.ITEM_TYPE_DECORATION,
                         ItemTypes.ITEM_TYPE_REPAIRABLE,
-                        ItemTypes.ITEM_TYPE_INDESTRUCTIBLE,
                         ItemTypes.ITEM_TYPE_USE_GROUND_ONLY,
-                        ItemTypes.ITEM_TYPE_TRANSPORTABLE
+                        ItemTypes.ITEM_TYPE_TRANSPORTABLE,
+                        ItemTypes.ITEM_TYPE_TURNABLE,
+                        ItemTypes.ITEM_TYPE_COLORABLE,
+                        ItemTypes.ITEM_TYPE_NOT_MISSION
                 })
                 .material(ItemMaterials.MATERIAL_MARBLE)
                 .modelName("model.structure.portal.7.")
