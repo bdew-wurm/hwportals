@@ -1,5 +1,6 @@
 package net.bdew.wurm.hwportals;
 
+import com.wurmonline.server.creatures.Communicator;
 import com.wurmonline.server.items.Item;
 import com.wurmonline.server.villages.Village;
 
@@ -40,4 +41,18 @@ public class Hooks {
             portal.setName("inactive town portal", true);
         }
     }
+
+    public static void sendItemHook(Communicator comm, Item item) {
+        if (item.getTemplateId() == PortalItems.portalItemId && item.getAuxData() > 0) {
+            comm.sendRemoveEffect(item.getWurmId());
+            comm.sendAddEffect(item.getWurmId(), (short) 27, item.getPosX(), item.getPosY(), item.getPosZ() + HwPortals.particleZ, (byte) (item.isOnSurface() ? 0 : -1), HwPortals.activeParticle, Float.MAX_VALUE, 0f);
+        }
+    }
+
+    public static void removeItemHook(Communicator comm, Item item) {
+        if (item.getTemplateId() == PortalItems.portalItemId && item.getAuxData() > 0) {
+            comm.sendRemoveEffect(item.getWurmId());
+        }
+    }
+
 }

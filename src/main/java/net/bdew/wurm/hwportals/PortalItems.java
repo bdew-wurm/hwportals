@@ -2,8 +2,13 @@ package net.bdew.wurm.hwportals;
 
 import com.wurmonline.server.items.*;
 import com.wurmonline.server.skills.SkillList;
+import com.wurmonline.server.zones.NoSuchZoneException;
+import com.wurmonline.server.zones.Zone;
+import com.wurmonline.server.zones.Zones;
 import com.wurmonline.shared.constants.ItemMaterials;
 import org.gotti.wurmunlimited.modsupport.ItemTemplateBuilder;
+import org.gotti.wurmunlimited.modsupport.items.ModItems;
+import org.gotti.wurmunlimited.modsupport.items.ModelNameProvider;
 
 import java.io.IOException;
 
@@ -32,11 +37,14 @@ public class PortalItems {
                         ItemTypes.ITEM_TYPE_NOT_MISSION
                 })
                 .material(ItemMaterials.MATERIAL_MARBLE)
-                .modelName("model.structure.portal.7.")
+                .modelName(HwPortals.inactiveModel)
                 .behaviourType((short) 1)
                 .build();
 
+
         portalItemId = portalItem.getTemplateId();
+
+        ModItems.addModelNameProvider(portalItemId, new PortalModelProvider());
 
         CreationEntryCreator.createAdvancedEntry(SkillList.MASONRY, ItemList.mortar, ItemList.marbleBrick, portalItemId, true, false, 0f, true, true, CreationCategories.MAGIC)
                 .addRequirement(new CreationRequirement(1, ItemList.marbleBrick, 39, true))
@@ -52,8 +60,26 @@ public class PortalItems {
                 .addRequirement(new CreationRequirement(11, ItemList.goldBar, 10, true));
     }
 
+    public static class PortalModelProvider implements ModelNameProvider {
+        @Override
+        public String getModelName(Item item) {
+            if (item.getAuxData() > 0)
+                return HwPortals.activeModel;
+            else
+                return HwPortals.inactiveModel;
+        }
+    }
+
     public static void setPortalActive(Item portal, boolean active) {
+        Zone zone = null;
+        try {
+            zone = Zones.getZone(portal.getTilePos(), portal.isOnSurface());
+        } catch (NoSuchZoneException e) {
+            HwPortals.logException(String.format("Portal %d in invalid zone", portal.getWurmId()), e);
+        }
+        if (zone != null) zone.removeItem(portal);
         portal.setName(active ? "town portal" : "inactive town portal", true);
         portal.setAuxData((byte) (active ? 1 : 0));
+        if (zone != null) zone.addItem(portal);
     }
 }

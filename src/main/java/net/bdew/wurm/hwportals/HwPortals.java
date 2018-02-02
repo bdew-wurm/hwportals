@@ -32,8 +32,15 @@ public class HwPortals implements WurmServerMod, Configurable, PreInitable, Init
             logger.log(Level.INFO, msg);
     }
 
+    public static String activeModel, inactiveModel, activeParticle;
+    public static float particleZ;
+
     @Override
     public void configure(Properties properties) {
+        activeModel = properties.getProperty("activeModel", "model.structure.portal.7.");
+        inactiveModel = properties.getProperty("inactiveModel", activeModel);
+        activeParticle = properties.getProperty("activeParticle", null);
+        particleZ = Float.parseFloat(properties.getProperty("particleZ", "0"));
     }
 
     @Override
@@ -48,6 +55,15 @@ public class HwPortals implements WurmServerMod, Configurable, PreInitable, Init
             CtClass ctVillage = classPool.getCtClass("com.wurmonline.server.villages.Village");
             ctVillage.getMethod("disband", "(Ljava/lang/String;)V").insertBefore("net.bdew.wurm.hwportals.Hooks.disband(this);");
             ctVillage.getMethod("setNewBounds", "(IIII)V").insertAfter("net.bdew.wurm.hwportals.Hooks.resize(this);");
+
+            if (activeParticle != null && activeParticle.length() > 0) {
+                CtClass ctCommunicator = classPool.getCtClass("com.wurmonline.server.creatures.Communicator");
+                ctCommunicator.getMethod("sendItem", "(Lcom/wurmonline/server/items/Item;JZ)V")
+                        .insertAfter("net.bdew.wurm.hwportals.Hooks.sendItemHook(this, $1);");
+                ctCommunicator.getMethod("sendRemoveItem", "(Lcom/wurmonline/server/items/Item;)V")
+                        .insertAfter("net.bdew.wurm.hwportals.Hooks.removeItemHook(this, $1);");
+            }
+
         } catch (Throwable e) {
             throw new RuntimeException(e);
         }
