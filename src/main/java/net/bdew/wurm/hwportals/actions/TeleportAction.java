@@ -8,7 +8,6 @@ import com.wurmonline.server.villages.Village;
 import net.bdew.wurm.hwportals.PortalItems;
 import net.bdew.wurm.hwportals.PortalTracker;
 import net.bdew.wurm.hwportals.questions.TeleportQuestion;
-import org.gotti.wurmunlimited.modloader.ReflectionUtil;
 import org.gotti.wurmunlimited.modsupport.actions.*;
 
 import java.util.Collections;
@@ -18,15 +17,10 @@ public class TeleportAction implements ModAction, BehaviourProvider, ActionPerfo
     private final ActionEntry actionEntry;
 
     public TeleportAction() {
-        actionEntry = ActionEntry.createEntry((short) ModActions.getNextActionId(), "Teleport", "thinking with portals", new int[]{
+        actionEntry = new ActionEntryBuilder((short) ModActions.getNextActionId(), "Teleport", "thinking with portals", new int[]{
                 48 /* ACTION_TYPE_ENEMY_ALWAYS */,
                 37 /* ACTION_TYPE_NEVER_USE_ACTIVE_ITEM */
-        });
-        try {
-            ReflectionUtil.setPrivateField(actionEntry, ReflectionUtil.getField(ActionEntry.class, "maxRange"), 4);
-        } catch (IllegalAccessException | NoSuchFieldException e) {
-            throw new RuntimeException(e);
-        }
+        }).range(5).build();
         ModActions.registerAction(actionEntry);
     }
 

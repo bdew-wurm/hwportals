@@ -11,7 +11,6 @@ import com.wurmonline.server.zones.VolaTile;
 import com.wurmonline.server.zones.Zones;
 import net.bdew.wurm.hwportals.PortalItems;
 import net.bdew.wurm.hwportals.PortalTracker;
-import org.gotti.wurmunlimited.modloader.ReflectionUtil;
 import org.gotti.wurmunlimited.modsupport.actions.*;
 
 import java.util.Collections;
@@ -22,15 +21,10 @@ public class TogglePortalAction implements ModAction, BehaviourProvider, ActionP
     private final boolean activate;
 
     public TogglePortalAction(boolean activate) {
-        actionEntry = ActionEntry.createEntry((short) ModActions.getNextActionId(), activate ? "Activate" : "Shut Down", activate ? "activating" : "shutting down", new int[]{
+        actionEntry = new ActionEntryBuilder((short) ModActions.getNextActionId(), activate ? "Activate" : "Shut Down", activate ? "activating" : "shutting down", new int[]{
                 48 /* ACTION_TYPE_ENEMY_ALWAYS */,
                 37 /* ACTION_TYPE_NEVER_USE_ACTIVE_ITEM */
-        });
-        try {
-            ReflectionUtil.setPrivateField(actionEntry, ReflectionUtil.getField(ActionEntry.class, "maxRange"), 4);
-        } catch (IllegalAccessException | NoSuchFieldException e) {
-            throw new RuntimeException(e);
-        }
+        }).range(5).build();
         ModActions.registerAction(actionEntry);
         this.activate = activate;
     }
