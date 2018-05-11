@@ -119,13 +119,16 @@ public class TeleportHelper {
     }
 
     private static void teleportCreature(Creature subject, Item target) {
+        float tx = target.getPosX() + Server.rand.nextFloat() - 0.5f;
+        float ty = target.getPosY() + Server.rand.nextFloat() - 0.5f;
+        float tz = target.getPosZ() + Server.rand.nextFloat() - 0.5f;
         if (subject.isPlayer()) {
-            subject.setTeleportPoints(target.getPosX(), target.getPosY(), target.isOnSurface() ? 0 : -1, 0);
+            subject.setTeleportPoints(tx, ty, target.isOnSurface() ? 0 : -1, 0);
             if (subject.startTeleporting()) {
                 subject.getCommunicator().sendTeleport(false);
             }
         } else {
-            CreatureBehaviour.blinkTo(subject, target.getPosX(), target.getPosY(), target.isOnSurface() ? 0 : -1, target.getPosZ(), -10L, 0);
+            CreatureBehaviour.blinkTo(subject, tx, ty, target.isOnSurface() ? 0 : -1, tz, -10L, 0);
         }
     }
 
@@ -133,7 +136,10 @@ public class TeleportHelper {
         Zone originZone = Zones.getZone(subject.getTilePos(), subject.isOnSurface());
         Zone targetZone = Zones.getZone(target.getTilePos(), target.isOnSurface());
         originZone.removeItem(subject);
-        subject.setPosXYZRotation(target.getPosX(), target.getPosY(), target.getPosZ(), target.getRotation());
+        float tx = target.getPosX() + Server.rand.nextFloat() - 0.5f;
+        float ty = target.getPosY() + Server.rand.nextFloat() - 0.5f;
+        float tz = target.getPosZ() + Server.rand.nextFloat() - 0.5f;
+        subject.setPosXYZRotation(tx, ty, tz, target.getRotation());
         targetZone.addItem(subject);
     }
 }
