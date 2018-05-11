@@ -27,18 +27,16 @@ public class Hooks {
     public static void disband(Village village) {
         Item portal = PortalTracker.getPortalFor(village);
         if (portal != null) {
+            PortalItems.setPortalActive(portal, false);
             PortalTracker.removePortal(portal);
-            portal.setAuxData((byte) 0);
-            portal.setName("inactive town portal", true);
         }
     }
 
     public static void resize(Village village) {
         Item portal = PortalTracker.getPortalFor(village);
         if (portal != null && !village.containsItem(portal)) {
+            PortalItems.setPortalActive(portal, false);
             PortalTracker.removePortal(portal);
-            portal.setAuxData((byte) 0);
-            portal.setName("inactive town portal", true);
         }
     }
 
