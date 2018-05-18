@@ -78,6 +78,7 @@ public class PortalItems {
             HwPortals.logException(String.format("Portal %d in invalid zone", portal.getWurmId()), e);
         }
         if (zone != null) zone.removeItem(portal);
+        portal.setIsPlanted(active);
         portal.setName(active ? "town portal" : "inactive town portal", true);
         portal.setAuxData((byte) (active ? 1 : 0));
         if (zone != null) zone.addItem(portal);

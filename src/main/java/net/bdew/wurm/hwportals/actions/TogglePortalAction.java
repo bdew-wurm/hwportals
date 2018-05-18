@@ -106,7 +106,6 @@ public class TogglePortalAction implements ModAction, BehaviourProvider, ActionP
         if (canUse(performer, target, true)) {
             if (activate) {
                 target.setLastOwnerId(performer.getWurmId());
-                target.setIsPlanted(true);
                 PortalTracker.addPortal(target);
                 PortalItems.setPortalActive(target, true);
                 performer.getCommunicator().sendNormalServerMessage("You activate the portal.");
