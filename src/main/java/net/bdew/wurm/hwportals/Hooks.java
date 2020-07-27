@@ -44,6 +44,7 @@ public class Hooks {
         if (item.getTemplateId() == PortalItems.portalItemId && item.getAuxData() > 0) {
             comm.sendRemoveEffect(item.getWurmId());
             comm.sendAddEffect(item.getWurmId(), (short) 27, item.getPosX(), item.getPosY(), item.getPosZ() + HwPortals.particleZ, (byte) (item.isOnSurface() ? 0 : -1), HwPortals.activeParticle, Float.MAX_VALUE, 0f);
+            comm.sendAttachEffect(item.getWurmId(), (byte) 4, (byte) 255, (byte) 250, (byte) 205, (byte) 120);
         }
     }
 

@@ -1,0 +1,3 @@
+model.structure.portal.highway = portal.wom
+model.structure.portal.highway.active = portal-active.wom?ruby.emissive=1,0,0,1
+model.structure.portal.highway.unfinished = portal-unfinished.wom

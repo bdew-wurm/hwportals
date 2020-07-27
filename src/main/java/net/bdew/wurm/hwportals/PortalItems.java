@@ -36,7 +36,7 @@ public class PortalItems {
                         ItemTypes.ITEM_TYPE_COLORABLE,
                         ItemTypes.ITEM_TYPE_NOT_MISSION
                 })
-                .material(ItemMaterials.MATERIAL_MARBLE)
+                .material(ItemMaterials.MATERIAL_STONE)
                 .modelName(HwPortals.inactiveModel)
                 .behaviourType((short) 1)
                 .build();
@@ -46,8 +46,8 @@ public class PortalItems {
 
         ModItems.addModelNameProvider(portalItemId, new PortalModelProvider());
 
-        CreationEntryCreator.createAdvancedEntry(SkillList.MASONRY, ItemList.mortar, ItemList.marbleBrick, portalItemId, true, false, 0f, true, true, CreationCategories.MAGIC)
-                .addRequirement(new CreationRequirement(1, ItemList.marbleBrick, 39, true))
+        CreationEntryCreator.createAdvancedEntry(SkillList.MASONRY, ItemList.mortar, ItemList.stoneBrick, portalItemId, true, false, 0f, true, true, CreationCategories.MAGIC)
+                .addRequirement(new CreationRequirement(1, ItemList.stoneBrick, 39, true))
                 .addRequirement(new CreationRequirement(2, ItemList.mortar, 39, true))
                 .addRequirement(new CreationRequirement(3, ItemList.rubyStar, 1, true))
                 .addRequirement(new CreationRequirement(4, ItemList.diamondStar, 1, true))

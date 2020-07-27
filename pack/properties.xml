@@ -1,0 +1,9 @@
+<properties>
+    <portal-active.wom>
+        <customEffect>
+            <torchFire>
+                <nullName>candle1</nullName>
+            </torchFire>
+        </customEffect>
+    </portal-active.wom>
+</properties>

@@ -1,7 +1,7 @@
 apply plugin: 'java'
 
 group "net.bdew.wurm"
-version "1.6"
+version "1.7"
 
 repositories {
     mavenCentral()
@@ -9,18 +9,24 @@ repositories {
 }
 
 dependencies {
-    compile 'org.gotti.wurmunlimited:server-modlauncher:0.35-beta1'
+    compile 'org.gotti.wurmunlimited:server-modlauncher:0.43'
 }
 
 jar {
     archiveName "${project.name}.jar"
 }
 
+task pack(type: Zip) {
+    from fileTree(dir: 'pack', include: '**')
+    destinationDirectory = file("build/pack")
+    archiveName "portals-pack.jar"
+}
 
 task dist(type: Zip) {
     into("mods", {
         into(project.name, {
             from jar
+            from pack
         })
         from fileTree(dir: 'mods', include: '*')
     })
