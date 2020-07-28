@@ -3,6 +3,7 @@ package net.bdew.wurm.hwportals;
 import com.wurmonline.server.creatures.Communicator;
 import com.wurmonline.server.items.Item;
 import com.wurmonline.server.villages.Village;
+import com.wurmonline.shared.constants.ItemMaterials;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -11,8 +12,11 @@ public class Hooks {
     private final static Set<Item> portalsToLoad = new HashSet<>();
 
     public static void addItemLoading(Item item) {
-        if (item.getTemplateId() == PortalItems.portalItemId && item.getAuxData() == 1) {
-            portalsToLoad.add(item);
+        if (item.getTemplateId() == PortalItems.portalItemId) {
+            if (item.getMaterial() == ItemMaterials.MATERIAL_MARBLE)
+                item.setMaterial(ItemMaterials.MATERIAL_STONE);
+            if (item.getAuxData() == 1)
+                portalsToLoad.add(item);
         }
     }
 

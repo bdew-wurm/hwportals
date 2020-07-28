@@ -34,6 +34,7 @@ public class HwPortals implements WurmServerMod, Configurable, PreInitable, Init
 
     public static String activeModel, inactiveModel, activeParticle;
     public static float particleZ;
+    public static boolean useSerylInRecipe, useRiftCrystalInRecipe;
 
     @Override
     public void configure(Properties properties) {
@@ -41,6 +42,8 @@ public class HwPortals implements WurmServerMod, Configurable, PreInitable, Init
         inactiveModel = properties.getProperty("inactiveModel", activeModel);
         activeParticle = properties.getProperty("activeParticle", null);
         particleZ = Float.parseFloat(properties.getProperty("particleZ", "0"));
+        useSerylInRecipe = Boolean.parseBoolean(properties.getProperty("useSerylInRecipe", "true"));
+        useRiftCrystalInRecipe = Boolean.parseBoolean(properties.getProperty("useRiftCrystalInRecipe", "true"));
     }
 
     @Override

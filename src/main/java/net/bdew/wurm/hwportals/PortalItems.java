@@ -55,9 +55,10 @@ public class PortalItems {
                 .addRequirement(new CreationRequirement(6, ItemList.emeraldStar, 1, true))
                 .addRequirement(new CreationRequirement(7, ItemList.opalBlack, 1, true))
                 .addRequirement(new CreationRequirement(8, ItemList.sourceCrystal, 5, true))
-                .addRequirement(new CreationRequirement(9, ItemList.riftCrystal, 5, true))
+                .addRequirement(new CreationRequirement(9, HwPortals.useSerylInRecipe ? ItemList.riftCrystal : ItemList.ruby, 5, true))
                 .addRequirement(new CreationRequirement(10, ItemList.ironBar, 20, true))
-                .addRequirement(new CreationRequirement(11, ItemList.goldBar, 10, true));
+                .addRequirement(new CreationRequirement(11, HwPortals.useSerylInRecipe ? ItemList.seryllBar : ItemList.goldBar, HwPortals.useSerylInRecipe ? 5 : 10, true))
+                .addRequirement(new CreationRequirement(12, ItemList.candle, 3, true));
     }
 
     public static class PortalModelProvider implements ModelNameProvider {
